@@ -1,13 +1,9 @@
 [Core]
-Name = ChatBot
-Module = chatbot
-#DependsOn =
+Name = Comandos
+Module = Comandos
 
 [Documentation]
-Author = Ederson Torresini
-Version = 0.1
-Description = Chat bot com os robôs.
-Website = http://www.marvietech.com.br/
+Description = Comandos da Julinha Marvi-e.
 
 [Python]
 Version = 3
