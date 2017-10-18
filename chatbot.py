@@ -1,43 +1,98 @@
-import re
-from errbot import BotPlugin, botcmd, re_botcmd, ONLINE, AWAY
+import re, json
+from errbot import BotPlugin, botcmd, arg_botcmd, webhook, re_botcmd, ONLINE, AWAY
 
 
-class ChatBot(BotPlugin):
+class Comandos(BotPlugin):
     """
-    Uma conversa franca com Julinho, o robô do Integrado.
+    Comandos da Julinha Marvi·e.
     """
 
-    @botcmd
-    def descansar(self, msg, args):
+    def help
+    
+    @re_botcmd(pattern=r"(.| )+")
+    def enviar_rota(self, msg, match):
         """
-        Manda o Julinho descansar.
+        Manda a Julinha seguir rota para o endereço X.
         """
-        yield("Adeus, mundo cruel!")
-        self.change_presence(AWAY, "Eu não estou aqui!")
+        rota = str(match.group())
+        
+        mensagem = {}
+        mensagem['rota'] = rota
+        print(json.dumps(mensagem))
+        # Envia "local" para o servidor de rotas, e fica esperando uma resposta.
+        #
+        # Quando chegar a resposta, formatar para o usuário final.
+        yield("Siga-me até " + rota + ". Obrigada.:relaxed:")
 
-    @botcmd
-    def acordar(self, msg, args):
+
+#funções
+
+    @re_botcmd(pattern=r"andar [0-9]+")
+    def andar(self, msg, match):
         """
-        Manda o Julinho acordar.
+        Manda a Julinha andar x.
         """
-        yield("Sim, senhor SENHOR!")
-        self.change_presence(ONLINE, "Às suas ordens!")
+        mensagem = {}
+        mensagem['comando'] = "andar"
+        quantidade = match.group().split(' ')[1]
+        if quantidade:
+            mensagem['valor'] = quantidade
+            yield(mensagem)
 
     @botcmd
     def buzinar(self, msg, args):
         """
         Aciona a buzina do Arduino.
         """
-        yield("Bip bip!")
+        yield("Bip bip!:mega:")
 
-    @re_botcmd(pattern=r"andar [0-9]+")
-    def andar(self, msg, match):
+    @botcmd
+    def desligar(self, msg, args):
         """
-        Aciona a buzina do Arduino.
+        Desliga a Julinha.
         """
-        mensagem = {}
-        mensagem['comando'] = "andar"
-        quantidade = match.group().split(' ')[0]
-        if quantidade:
-            mensagem['valor'] = quantidade
-            yield(mensagem)
+        yield("Foi um prazer trabalhar hoje! Beijo, me liga!:kissing_heart:")
+        self.change_presence(AWAY)
+
+    @botcmd
+    def direita(self, msg, args):
+        """
+        Manda a Julinha virar à direita.
+        """
+        yield("Virando à direita!")
+
+    @botcmd
+    def esquerda(self, msg, args):
+        """
+        Manda a Julinha virar à esquerda.
+        """
+        yield("Virando à esquerda!")
+    
+    @botcmd
+    def frente(self, msg, args):
+        """
+        Manda a Julinha ir à frente.
+        """
+        yield("Para frente e avante!")
+
+    @botcmd
+    def ligar(self, msg, args):
+        """
+        Liga a Julinha.
+        """
+        yield("Julinha às suas ordens, capitão!")
+        self.change_presence(ONLINE)
+      
+    @botcmd
+    def sirene(self, msg, args):
+        """
+        Aciona a sirene do Arduino.
+        """
+        yield("Uiuuu uiuuu!:rotating_light:")
+
+    @botcmd
+    def tras(self, msg, args):
+        """
+        Manda a Julinha para trás.
+        """
+        yield("Dando ré!")
